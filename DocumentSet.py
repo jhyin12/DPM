@@ -18,5 +18,4 @@ class DocumentSet:
                 self.documents.append(document)
                 line = input.readline()
 
-        
         print("number of documents is ", self.D)

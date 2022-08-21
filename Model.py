@@ -21,7 +21,6 @@ class Model:
         self.alpha = alpha
         self.beta = beta
         
-
         self.beta0 = float(V) * float(beta)
 
         self.smallDouble = 1e-150
@@ -162,14 +161,10 @@ class Model:
     def sampleCluster(self, _iter, document, MODE):
         prob = [float(0.0)] * (self.K + 1)
         overflowCount = [float(0.0)] * (self.K + 1)
-        overflowCount_2 = [float(0.0)] * (self.K + 1)
-        prob_2 = [float(0.0)] * (self.K + 1)
-        e_index = [float(0.0)] * (self.K + 1)
-
+        
         for k in range(self.K):
             if self.m_z[k] == 0:
                 prob[k] = 0
-                prob_2[k] = 0
                 continue
             # DPMM
             
@@ -234,8 +229,6 @@ class Model:
 
         
         prob = self.sumNormalization(prob)  # DPMM
-        
-
         
 
         if MODE == "Random":

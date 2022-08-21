@@ -224,10 +224,10 @@ class ClusterEvaluation():
 
 
 def ICMM_withGMMEvaluation():
-    dirName = '%sK%dalpha%sbeta%ssigma%skappa%s_lambda%siterNum%dSampleNum%d/' % \
-              (dataset, K, alpha, beta, sigma, kappa, _lambda, iterNum, sampleNum)
-    resultFileName = 'ICMM_withGMMDataset%sK%dalpha%sbeta%ssigma%skappa%s_lambda%siterNum%dSampleNum%dNoiseKThreshold%d.txt' % (
-        dataset, K, alpha, beta, sigma, kappa, _lambda, iterNum, sampleNum, KThreshold)
+    dirName = '%sK%dalpha%sbeta%siterNum%dSampleNum%d/' % \
+              (dataset, K, alpha, beta, iterNum, sampleNum)
+    resultFileName = 'ICMM_withGMMDataset%sK%dalpha%sbeta%siterNum%dSampleNum%dNoiseKThreshold%d.txt' % (
+        dataset, K, alpha, beta, iterNum, sampleNum, KThreshold)
     resultFilePath = inPath + dirName + resultFileName
     ICMM_withGMMEvaluation = ClusterEvaluation(resultFilePath)
 
@@ -263,8 +263,8 @@ def ICMM_withGMMEvaluation():
     KRealNumVarianceList.append(np.std(KRealNumList))
     noiseNumVarianceList.append(np.std(noiseNumList))
 
-    titleStr = 'ICMM_withGMM %s K%d iterNum%d SampleNum%d alpha%s beta%s sigma%s kappa%s _lambda%s' % \
-               (dataset, K, iterNum, sampleNum, alpha, beta, sigma, kappa, _lambda)
+    titleStr = 'ICMM_withGMM %s K%d iterNum%d SampleNum%d alpha%s beta%s' % \
+               (dataset, K, iterNum, sampleNum, alpha, beta)
     ICMM_withGMMEvaluation.drawEvaluationResult(titleStr)
     ICMM_withGMMEvaluation.drawPredK(KRealNumMeanList, KPredNumMeanList, KRealNumVarianceList, KPredNumVarianceList)
 
@@ -276,10 +276,12 @@ if __name__ == '__main__':
     # iterNum_list = range(1, 21)
     K = 0
     alpha = '0.01'
-    beta = '0.1'
-    sigma = '0.0005',
-    kappa = '0.5'
-    _lambda = '0.7'
+    # alpha_list = ['0.01', '0.05', '0.1', '0.15', '0.2', '0.25',
+    #              '0.3', '0.35', '0.4', '0.45', '0.5']
+    # beta = '0.05'
+    beta_list = ['0.01', '0.05', '0.1', '0.15', '0.2', '0.25',
+                 '0.3', '0.35', '0.4', '0.45', '0.5']
+   
     
 
     # dataset = "GoogleNews-SIMCSE"
@@ -289,8 +291,17 @@ if __name__ == '__main__':
     # dataset = "R52-SIMCSE"
     # dataset = "20ng-SIMCSE"
     # dataset = "StackOverflow-SIMCSE"
-    dataset = "Biomedical-SIMCSE"
-    datasetPath = './data/' + dataset
-    inPath = './result/'
+    # dataset = "Biomedical-SIMCSE"
+    # dataset = "AgNews-SIMCSE"
+    dataset = "Search-Snippets-SIMCSE"
+    datasetPath = '../data/' + dataset
+    inPath = './result/SS_beta_S3_iter15/'
 
-    ICMM_withGMMEvaluation()
+    for beta in beta_list:
+        beta = beta
+        ICMM_withGMMEvaluation()
+
+    # for alpha in alpha_list:
+    #     alpha = alpha
+
+    #     ICMM_withGMMEvaluation()
