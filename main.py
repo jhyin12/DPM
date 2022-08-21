@@ -1,8 +1,8 @@
 """
-ICMM_withGMM
+DPM
 """
  
-from ICMM_withGMM import ICMM_withGMM
+from DPM import DPM
 import time
 import argparse
 parser = argparse.ArgumentParser()
@@ -40,26 +40,26 @@ dataDir = "../data/"
 outputPath = "result/20ng_beta_S3_iter15/"
 
 
-def runICMM_withGMM(K, alpha, beta, iterNum, sampleNum, dataset, wordsInTopicNum, dataDir):
-    icmm_withgmm = ICMM_withGMM(K, alpha, beta, iterNum, sampleNum, dataset, wordsInTopicNum, dataDir)
+def runDPM(K, alpha, beta, iterNum, sampleNum, dataset, wordsInTopicNum, dataDir):
+    dpm = DPM(K, alpha, beta, iterNum, sampleNum, dataset, wordsInTopicNum, dataDir)
     '''
-    返回ICMM_withGMM对象
+    返回DPM对象
     ICMM_with有两个函数
     getDocuments(self)
-    runICMM_withGMM(self, sampleNo, outputPath)
+    runDPM(self, sampleNo, outputPath)
     '''
     
-    icmm_withgmm.getDocuments()
+    dpm.getDocuments()
     for sampleNo in range(1, sampleNum + 1):
         print("SampleNo:" + str(sampleNo))
-        icmm_withgmm.runICMM_withGMM(sampleNo, outputPath)
+        dpm.runDPM(sampleNo, outputPath)
 
 
 
 if __name__ == '__main__':
-    outf = open("time_ICMM_withGMM", "a")
+    outf = open("time_DPM", "a")
     time1 = time.time()
-    runICMM_withGMM(K, alpha, beta, iterNum, sampleNum, dataset, wordsInTopicNum, dataDir)
+    runDPM(K, alpha, beta, iterNum, sampleNum, dataset, wordsInTopicNum, dataDir)
     time2 = time.time()
     outf.write(str(dataset) + "K" + str(K) + "alpha" + str(round(alpha, 3)) + "beta" + str(round(beta, 3)) +
                "iterNum" + str(iterNum) + "SampleNum" + str(sampleNum) +

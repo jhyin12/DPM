@@ -223,13 +223,13 @@ class ClusterEvaluation():
             fout.write('\n' + '-' * 50 + '\n\n')
 
 
-def ICMM_withGMMEvaluation():
+def DPMEvaluation():
     dirName = '%sK%dalpha%sbeta%siterNum%dSampleNum%d/' % \
               (dataset, K, alpha, beta, iterNum, sampleNum)
-    resultFileName = 'ICMM_withGMMDataset%sK%dalpha%sbeta%siterNum%dSampleNum%dNoiseKThreshold%d.txt' % (
+    resultFileName = 'DPMDataset%sK%dalpha%sbeta%siterNum%dSampleNum%dNoiseKThreshold%d.txt' % (
         dataset, K, alpha, beta, iterNum, sampleNum, KThreshold)
     resultFilePath = inPath + dirName + resultFileName
-    ICMM_withGMMEvaluation = ClusterEvaluation(resultFilePath)
+    DPMEvaluation = ClusterEvaluation(resultFilePath)
 
     KPredNumMeanList = []
     KPredNumVarianceList = []
@@ -245,17 +245,17 @@ def ICMM_withGMMEvaluation():
         inDir = inPath + dirName
         fileName = '%sSampleNo%dClusteringResult.txt' % (dataset, sampleNo)
         inFile = inDir + fileName
-        ICMM_withGMMEvaluation.getPredLabels(inFile)
+        DPMEvaluation.getPredLabels(inFile)
         sizeFile = inDir + '%sSampleNo%dSizeOfEachCluster.txt' % (dataset, sampleNo)
-        (KPredNum, docRemainNum, docTotalNum) = ICMM_withGMMEvaluation.getPredNumThreshold(sizeFile, KThreshold)
-        ICMM_withGMMEvaluation.getTrueLabels(datasetPath)
+        (KPredNum, docRemainNum, docTotalNum) = DPMEvaluation.getPredNumThreshold(sizeFile, KThreshold)
+        DPMEvaluation.getTrueLabels(datasetPath)
 
-        ICMM_withGMMEvaluation.evaluatePerSample(sampleNo)
+        DPMEvaluation.evaluatePerSample(sampleNo)
         KPredNumList.append(KPredNum)
-        KRealNumList.append(ICMM_withGMMEvaluation.KRealNum)
+        KRealNumList.append(DPMEvaluation.KRealNum)
         noiseNumList.append(docTotalNum - docRemainNum)
 
-    ICMM_withGMMEvaluation.evaluateAllSamples()
+    DPMEvaluation.evaluateAllSamples()
     KPredNumMeanList.append(np.mean(KPredNumList))      # mean
     KRealNumMeanList.append(np.mean(KRealNumList))
     noiseNumMeanList.append(np.mean(noiseNumList))
@@ -263,10 +263,10 @@ def ICMM_withGMMEvaluation():
     KRealNumVarianceList.append(np.std(KRealNumList))
     noiseNumVarianceList.append(np.std(noiseNumList))
 
-    titleStr = 'ICMM_withGMM %s K%d iterNum%d SampleNum%d alpha%s beta%s' % \
+    titleStr = 'DPM %s K%d iterNum%d SampleNum%d alpha%s beta%s' % \
                (dataset, K, iterNum, sampleNum, alpha, beta)
-    ICMM_withGMMEvaluation.drawEvaluationResult(titleStr)
-    ICMM_withGMMEvaluation.drawPredK(KRealNumMeanList, KPredNumMeanList, KRealNumVarianceList, KPredNumVarianceList)
+    DPMEvaluation.drawEvaluationResult(titleStr)
+    DPMEvaluation.drawPredK(KRealNumMeanList, KPredNumMeanList, KRealNumVarianceList, KPredNumVarianceList)
 
 
 if __name__ == '__main__':
@@ -299,9 +299,9 @@ if __name__ == '__main__':
 
     for beta in beta_list:
         beta = beta
-        ICMM_withGMMEvaluation()
+        DPMEvaluation()
 
     # for alpha in alpha_list:
     #     alpha = alpha
 
-    #     ICMM_withGMMEvaluation()
+    #     DPMEvaluation()

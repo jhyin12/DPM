@@ -2,7 +2,7 @@ from DocumentSet import DocumentSet
 from Model import Model
 
 
-class ICMM_withGMM:
+class DPM:
 
     def __init__(self, K, alpha, beta, iterNum, sampleNum, dataset, wordsInTopicNum, dataDir):
         self.K = K
@@ -29,9 +29,9 @@ class ICMM_withGMM:
         v是词的总个数
         '''
 
-    def runICMM_withGMM(self, sampleNo, outputPath):
+    def runDPM(self, sampleNo, outputPath):
         ParametersStr = "K" + str(self.K) + "alpha" + str(round(self.alpha, 3)) + "beta" + str(round(self.beta, 3)) + \
                         "iterNum" + str(self.iterNum) + "SampleNum" + str(self.sampleNum)
         model = Model(self.K, self.V, self.iterNum, self.alpha, self.beta,
                       self.dataset, ParametersStr, sampleNo, self.wordsInTopicNum)
-        model.run_ICMM_withGMM(self.documentSet, outputPath, self.wordList)
+        model.run_DPM(self.documentSet, outputPath, self.wordList)

@@ -30,7 +30,7 @@ class Model:
         self.large = 1e150
         self.small = 1e-150
 
-    def run_ICMM_withGMM(self, documentSet, outputPath, wordList):
+    def run_DPM(self, documentSet, outputPath, wordList):
         # The whole number of documents
         self.D_All = documentSet.D  # document的总数
         # Cluster assignments of each document               (documentID -> clusterID)
