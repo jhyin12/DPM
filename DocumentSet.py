@@ -14,7 +14,7 @@ class DocumentSet:
                 self.D += 1
                 obj = json.loads(line)
                 text = obj['textCleaned']
-                document = Document(text, wordToIdMap, wordList, int(obj['tweetId']))
+                document = Document(text, wordToIdMap, wordList, int(obj['Id']))
                 self.documents.append(document)
                 line = input.readline()
 
