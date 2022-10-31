@@ -1,4 +1,4 @@
-## experiment for ICMM_withGMM
+## experiment for DPM
 
 * environment requirements : `numpy`, `sklearn`
 
